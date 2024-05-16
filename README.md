@@ -4,7 +4,7 @@
 
 >This is a Spring Boot Web Application to manage and schedule appointments between operators and users. It features such as appointments cancellation, appointments reschedule, list all the booked slots of an operator, and list all the opened slots of an operator.
 
-## Steps to Setup
+## Steps to Setup:
 
 **1. Clone the application from github or Unzip the sent zipped file.**
 
@@ -26,7 +26,7 @@ mvn spring-boot:run
 
 The app will start running at <http://localhost:8080>
 
-## STEP BY STEP APIs
+## STEP BY STEP APIs:
 
 **1. Create an user.**
 
@@ -123,7 +123,7 @@ curl --location --request PUT 'http://localhost:8080/api/v1/appointment/reschedu
 }'
 ```
 
-## Assumptions and Logics
+## Assumptions and Logics:
 
 - To book an appointment the user should be present in the DB. 
 - To book an appointment with the specific operator that operator should be available in the given slot. Else error will pop.
