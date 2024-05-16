@@ -14,7 +14,7 @@ git clone https://github.com/Anshuman-K/carServiceScheduler
 **2. Create MySQL database**
 
 ```bash
-create database appointmentscheduler
+create database car_service_vm
 ```
 - And change the properties(such as username and password) of the database in the file application.properties in Application.
 
