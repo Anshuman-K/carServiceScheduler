@@ -3,7 +3,6 @@ package com.voltMoney.carService.Service;
 import com.voltMoney.carService.DTO.OperatorDTO;
 import com.voltMoney.carService.Entity.Appointment;
 import com.voltMoney.carService.Entity.Operator;
-import com.voltMoney.carService.Entity.User;
 import com.voltMoney.carService.Repository.AppointmentRepository;
 import com.voltMoney.carService.Repository.OperatorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
