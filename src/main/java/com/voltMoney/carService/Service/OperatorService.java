@@ -26,6 +26,7 @@ public class OperatorService {
     }
 
 
+    //Method to get the booked slots of an operator.
     public ResponseEntity<Object> getAppointmentsByOperatorId(Integer operatorId) {
         if(Objects.nonNull(operatorId)){
             Optional<Operator> operator = operatorRepository.findById(operatorId);
@@ -47,6 +48,7 @@ public class OperatorService {
     }
 
 
+    //Method to get all the available slots in merged manner.
     public ResponseEntity<Object> getOpenSlotsByOperator(Integer operatorId) {
         if(Objects.nonNull(operatorId)) {
             Optional<Operator> operator = operatorRepository.findById(operatorId);
@@ -85,6 +87,7 @@ public class OperatorService {
         }
     }
 
+    //Method to create user.
     public ResponseEntity<Object> createOperator(OperatorDTO operatorDTO) {
         Operator operator = Operator.builder().name(operatorDTO.getName()).build();
         return ResponseEntity.ok().body(operatorRepository.save(operator));

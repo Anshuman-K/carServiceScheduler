@@ -34,6 +34,8 @@ public class AppointmentService {
         this.userRepository = userRepository;
         this.operatorRepository = operatorRepository;
     }
+
+    //Method to book appointment.
     public ResponseEntity<Object> bookAppointment(AppointmentDTO appointmentDTO){
         Optional<User> user = userRepository.findById(appointmentDTO.getUserId());
         if(user.isPresent()){
@@ -57,6 +59,7 @@ public class AppointmentService {
         }
     }
 
+    //Method to reschedule appointment
     public ResponseEntity<Object> rescheduleAppointment(Integer appointmentId, AppointmentDTO appointmentDTO) {
        ResponseEntity<Object> responseEntity = cancelAppointment(appointmentId, appointmentDTO.getUserId());
        if(responseEntity.getStatusCode().equals(HttpStatusCode.valueOf(400))){
@@ -65,6 +68,8 @@ public class AppointmentService {
         return bookAppointment(appointmentDTO);
     }
 
+
+    //Method to book with random operator which is present in the given time slot.
     private ResponseEntity<Object> bookWithRandomOperator(AppointmentDTO appointmentDTO){
         Random random = new Random();
         List<Integer> availableOperator = getAvailableOperator(appointmentDTO);
@@ -74,8 +79,8 @@ public class AppointmentService {
         return bookWithSpecificOperator(appointmentDTO);
     }
 
+    //Method to book with the specific operator.
     private ResponseEntity<Object> bookWithSpecificOperator(AppointmentDTO appointmentDTO){
-//        boolean isOperatorBusy = appointmentRepository.isOperatorBusy(appointmentDTO.getOperatorId(),appointmentDTO.getStartTime(), appointmentDTO.getEndTime());
         Appointment appointment = appointmentRepository.findAppointmentByIdAndTime(appointmentDTO.getOperatorId(),appointmentDTO.getStartTime(), appointmentDTO.getEndTime());
         if(Objects.isNull(appointment)){
             Appointment appointment1 = Appointment.builder()
@@ -94,18 +99,23 @@ public class AppointmentService {
         }
     }
 
+    //Method to validate the time, if the given time format is right or not.
     private boolean validateTimeFormat(int endTime, int startTime) {
         if(endTime > 24 || endTime < 0) return false;
         if(startTime >24 || startTime <0) return false;
         return (startTime < endTime) && (endTime - startTime == 1);
     }
 
+
+    //To proceed with the available operator, a method to find the available operator in the given slots.
     private List<Integer> getAvailableOperator(AppointmentDTO appointmentDTO) {
         List<Integer> busyOperators = appointmentRepository.getBusyOperator(appointmentDTO.getStartTime(), appointmentDTO.getEndTime());
         List<Integer> allOperators = operatorRepository.findAllOperatorIds();
         return allOperators.stream().filter(num -> !busyOperators.contains(num)).collect(Collectors.toList());
     }
 
+
+    //Method to cancel the appointment.
     public ResponseEntity<Object> cancelAppointment(Integer appointmentId, Integer userId) {
         Optional<Appointment> appointment = appointmentRepository.findById(appointmentId);
         if(appointment.isPresent()){
