@@ -123,6 +123,35 @@ curl --location --request PUT 'http://localhost:8080/api/v1/appointment/reschedu
 }'
 ```
 
+## DB Schema:
+
+Appointments:
+
+| Field               | Type       | Key       
+|---------------------|------------|-----------|
+| `id`                | int        | PRI       |
+| `start` (startTime) | int        |           |
+| `end` (endTime)     | int        |           |
+| `operator_id`       | int        | MUL       |
+| `user_id`           | int        | MUL       |
+| `status`            | enum('BOOKED','CANCELLED') |  |
+| `booking_reason`    | varchar(255) |  |
+
+Operators:
+
+| Field  | Type       | Key       
+|--------|------------|-----------|
+| `id`   | int        | PRI       |
+| `name` | varchar(255) |  |
+
+Users:
+
+| Field  | Type       | Key       
+|--------|------------|-----------|
+| `id`   | int        | PRI       |
+| `name` | varchar(255) |  |
+
+
 ## Assumptions and Logics:
 
 - To book an appointment the user should be present in the DB. 
